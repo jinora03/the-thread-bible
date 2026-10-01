@@ -1,0 +1,72 @@
+book: isaiah
+chapter: 53
+title: The suffering servant
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: "Isaiah 53 is the heart of the fourth Servant Song ([[Isaiah 52:13–53:12]]). The LORD’s servant is despised and rejected, wounded for the transgressions of others, silent like a lamb led to the slaughter, and buried with the wicked and the rich, yet after His suffering He sees His offspring and is exalted. The New Testament returns to this chapter again and again to explain the death of Jesus, and identifies Him as the servant."
+relatedScripture:
+  - Isaiah 52:13–15
+  - Matthew 8:17
+  - Luke 22:37
+  - John 12:37–38
+  - Acts 8:30–35
+  - Romans 4:25
+  - 1 Peter 2:22–25
+relatedIds:
+  - prophecy:suffering-servant
+  - person:isaiah
+  - theme:suffering
+  - theme:sacrifice
+  - theme:messiah
+  - doctrine:atonement
+  - typology:passover-lamb
+crossReferences:
+  - verse: 1
+    references:
+      - John 12:38
+      - Romans 10:16
+  - verse: 2
+    references:
+      - Isaiah 11:1
+  - verse: 3
+    references:
+      - Mark 9:12
+      - John 1:11
+  - verse: 4
+    references:
+      - Matthew 8:17
+  - verse: 5
+    references:
+      - Romans 4:25
+      - 1 Peter 2:24
+  - verse: 6
+    references:
+      - 1 Peter 2:25
+  - verse: 7
+    references:
+      - Matthew 27:12–14
+      - John 1:29
+      - Acts 8:32
+      - 1 Peter 2:23
+  - verse: 8
+    references:
+      - Acts 8:33
+  - verse: 9
+    references:
+      - Matthew 27:57–60
+      - 1 Peter 2:22
+  - verse: 10
+    references:
+      - Acts 2:23–24
+  - verse: 11
+    references:
+      - Romans 5:19
+  - verse: 12
+    references:
+      - Luke 22:37
+      - Luke 23:34
+      - Hebrews 9:28

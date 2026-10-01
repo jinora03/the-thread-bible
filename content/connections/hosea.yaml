@@ -1,0 +1,13 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: hos13-14-1co15-55
+    type: quotation
+    source: Hosea 13:14
+    target: 1 Corinthians 15:55
+    basis: stated
+    description: Where, O death, is your sting?

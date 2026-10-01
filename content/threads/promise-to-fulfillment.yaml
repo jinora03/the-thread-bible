@@ -1,0 +1,29 @@
+title: From Promise to Fulfillment
+steps:
+  - reference: Genesis 3:15
+    title: The first promise
+    label: Promise
+  - reference: Genesis 12:3
+    title: A blessing for all nations
+    label: Covenant
+  - reference: Genesis 22:8
+    title: God will provide a lamb
+    label: Pattern
+  - reference: 2 Samuel 7:12–13
+    title: A throne for ever
+    label: Covenant
+  - reference: Isaiah 53:5
+    title: Wounded for our transgressions
+    label: Prophecy
+  - reference: John 1:29
+    title: Behold the Lamb of God
+    label: Fulfillment
+  - reference: 1 Corinthians 15:20
+    title: Christ the firstfruits
+    label: Resurrection
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.

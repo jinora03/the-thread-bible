@@ -1,0 +1,19 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: 2sa7-12-luk1-32
+    type: promise-fulfillment
+    source: 2 Samuel 7:12–13
+    target: Luke 1:32–33
+    basis: stated
+    description: The throne of His father David
+  - id: 2sa7-14-heb1-5
+    type: quotation
+    source: 2 Samuel 7:14
+    target: Hebrews 1:5
+    basis: stated
+    description: A Father to David’s son

@@ -1,0 +1,31 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: psa44-22-rom8-36
+    type: quotation
+    source: Psalms 44:22
+    target: Romans 8:36
+    basis: stated
+    description: Counted as sheep for the slaughter
+  - id: psa16-10-act2-27
+    type: prophecy-fulfillment
+    source: Psalms 16:10
+    target: Acts 2:27–31
+    basis: stated
+    description: Not abandoned to the grave
+  - id: psa16-10-act13-35
+    type: quotation
+    source: Psalms 16:10
+    target: Acts 13:35
+    basis: stated
+    description: The Holy One will not see decay
+  - id: psa16-10-1co15-4
+    type: allusion
+    source: Psalms 16:10
+    target: 1 Corinthians 15:4
+    basis: suggested
+    description: Raised according to the Scriptures

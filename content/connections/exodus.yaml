@@ -1,0 +1,25 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: exo12-5-jhn1-29
+    type: type-antitype
+    source: Exodus 12:5
+    target: John 1:29
+    basis: supported
+    description: The Passover lamb
+  - id: exo12-5-1co5-7
+    type: type-antitype
+    source: Exodus 12:5
+    target: 1 Corinthians 5:7
+    basis: stated
+    description: Christ our Passover lamb
+  - id: exo12-46-jhn19-36
+    type: quotation
+    source: Exodus 12:46
+    target: John 19:36
+    basis: stated
+    description: No bone broken

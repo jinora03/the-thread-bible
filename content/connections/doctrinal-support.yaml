@@ -1,0 +1,79 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: job19-resurrection
+    type: supports-doctrine
+    source: Job 19:25–27
+    target: doctrine:resurrection
+    basis: suggested
+    description: Job’s Redeemer lives, and Job will see God
+  - id: dan12-resurrection
+    type: supports-doctrine
+    source: Daniel 12:2
+    target: doctrine:resurrection
+    basis: stated
+    description: Those who sleep in the dust will awake
+  - id: jhn11-resurrection
+    type: supports-doctrine
+    source: John 11:25–26
+    target: doctrine:resurrection
+    basis: stated
+    description: The resurrection and the life
+  - id: 1co15-resurrection
+    type: supports-doctrine
+    source: 1 Corinthians 15:20
+    target: doctrine:resurrection
+    basis: stated
+    description: Christ the firstfruits
+  - id: rom8-11-resurrection
+    type: supports-doctrine
+    source: Romans 8:11
+    target: doctrine:resurrection
+    basis: stated
+    description: Life for mortal bodies through the Spirit
+  - id: jhn1-14-incarnation
+    type: supports-doctrine
+    source: John 1:14
+    target: doctrine:incarnation
+    basis: stated
+    description: The Word became flesh
+  - id: rom8-16-assurance
+    type: supports-doctrine
+    source: Romans 8:16
+    target: doctrine:assurance
+    basis: stated
+    description: The Spirit’s witness that we are God’s children
+  - id: rom8-4-sanctification
+    type: supports-doctrine
+    source: Romans 8:4
+    target: doctrine:sanctification
+    basis: supported
+    description: Walking according to the Spirit
+  - id: rom8-30-glorification
+    type: supports-doctrine
+    source: Romans 8:30
+    target: doctrine:glorification
+    basis: stated
+    description: Those justified are glorified
+  - id: isa53-5-atonement
+    type: supports-doctrine
+    source: Isaiah 53:5
+    target: doctrine:atonement
+    basis: stated
+    description: Wounded for our transgressions
+  - id: gen15-6-justification
+    type: supports-doctrine
+    source: Genesis 15:6
+    target: doctrine:justification
+    basis: stated
+    description: Faith credited as righteousness
+  - id: gen1-1-creator
+    type: supports-doctrine
+    source: Genesis 1:1
+    target: doctrine:creator
+    basis: stated
+    description: God created the heavens and the earth

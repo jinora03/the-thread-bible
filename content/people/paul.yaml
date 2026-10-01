@@ -1,0 +1,29 @@
+title: Paul
+role: Apostle
+summary: Paul, also called Saul, was a Pharisee who persecuted the church until the risen Jesus appeared to him on the road to Damascus. He became the apostle to the Gentiles, and thirteen New Testament letters bear his name, among them Romans and 1 Corinthians.
+keyReferences:
+  - Acts 9:3–6
+  - 1 Corinthians 15:8–10
+  - Galatians 1:13–16
+  - Philippians 3:5–9
+  - Romans 1:1–5
+  - 2 Timothy 4:7–8
+relatedIds:
+  - place:corinth
+  - place:rome
+  - doctrine:justification
+  - doctrine:resurrection
+  - promise:blessing-to-the-nations
+tags:
+  - saul
+  - apostle
+  - apostle to the gentiles
+  - pharisee
+  - damascus road
+  - epistles
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.

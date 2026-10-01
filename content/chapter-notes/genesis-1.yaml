@@ -1,0 +1,60 @@
+book: genesis
+chapter: 1
+title: Creation
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: Genesis 1 presents God as the Creator of all things. Creation comes into being by His command, is ordered according to His purpose, and is repeatedly declared good. The rest of Scripture returns to this foundation when describing God’s authority over creation and Christ’s role in creation.
+relatedScripture:
+  - Psalms 33:6–9
+  - Isaiah 40:26
+  - John 1:1–3
+  - Colossians 1:16–17
+  - Hebrews 11:3
+  - Revelation 4:11
+relatedIds:
+  - theme:creation
+  - theme:light
+  - theme:the-spirit
+  - doctrine:creator
+crossReferences:
+  - verse: 1
+    references:
+      - John 1:1–3
+      - Psalms 102:25
+      - Hebrews 1:10
+      - Hebrews 11:3
+  - verse: 2
+    references:
+      - Job 33:4
+      - Psalms 104:30
+  - verse: 3
+    references:
+      - Psalms 33:9
+      - 2 Corinthians 4:6
+      - John 1:4–5
+  - verse: 16
+    references:
+      - Psalms 136:7–9
+      - Jeremiah 31:35
+  - verse: 26
+    references:
+      - Genesis 5:1
+      - Genesis 9:6
+      - Psalms 8:4–6
+      - James 3:9
+  - verse: 27
+    references:
+      - Matthew 19:4
+      - Colossians 1:15
+      - Colossians 3:10
+  - verse: 28
+    references:
+      - Genesis 9:1
+  - verse: 31
+    references:
+      - Psalms 104:24
+      - 1 Timothy 4:4

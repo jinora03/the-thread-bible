@@ -1,0 +1,29 @@
+title: Isaac
+role: Patriarch
+summary: Isaac is the son God promised to Abraham and Sarah, born when they were old, and the one through whom Abraham’s line of promise would continue. Abraham offered him on a mountain in the land of Moriah, and God provided a ram in his place.
+keyReferences:
+  - Genesis 17:19
+  - Genesis 21:1–3
+  - Genesis 22:1–14
+  - Genesis 26:3–4
+  - Romans 9:7–9
+  - Galatians 4:28
+  - Hebrews 11:17–19
+relatedIds:
+  - person:abraham
+  - event:binding-of-isaac
+  - typology:isaac-and-the-lamb
+  - place:mount-moriah
+  - covenant:abrahamic
+  - promise:seed-promise
+tags:
+  - patriarch
+  - son of promise
+  - sarah
+  - rebekah
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.

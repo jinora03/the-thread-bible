@@ -1,0 +1,126 @@
+book: romans
+chapter: 8
+title: Life in the Spirit
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: "Romans 8 describes life in the Spirit for those who are in Christ Jesus: no condemnation, the Spirit who gives life and leads God’s children, a creation groaning for its redemption, and the Spirit’s help in weakness. It ends with God’s purpose for His people and a love in Christ from which nothing can separate them. The chapter draws on the curse that followed the fall, the promise of God’s Spirit within His people, and the psalms of the faithful who suffer for His sake."
+relatedScripture:
+  - Genesis 3:17–19
+  - Ezekiel 36:26–27
+  - Romans 5:1–5
+  - Galatians 4:4–7
+  - Galatians 5:16–25
+  - 2 Corinthians 4:16–18
+  - Ephesians 1:13–14
+  - Revelation 21:1–5
+relatedIds:
+  - theme:adoption
+  - theme:the-spirit
+  - theme:suffering
+  - theme:glory
+  - doctrine:sanctification
+  - doctrine:assurance
+  - doctrine:glorification
+  - person:paul
+  - place:rome
+crossReferences:
+  - verse: 1
+    references:
+      - John 3:18
+      - John 5:24
+      - Romans 5:1
+  - verse: 2
+    references:
+      - Romans 7:24–25
+      - 2 Corinthians 3:6
+  - verse: 3
+    references:
+      - Galatians 4:4
+      - 2 Corinthians 5:21
+      - Hebrews 2:17
+  - verse: 4
+    references:
+      - Jeremiah 31:33
+      - Ezekiel 36:27
+  - verse: 9
+    references:
+      - 1 Corinthians 3:16
+      - 1 Peter 1:11
+  - verse: 11
+    references:
+      - 1 Corinthians 6:14
+      - 1 Corinthians 15:20–22
+  - verse: 13
+    references:
+      - Galatians 5:24
+      - Colossians 3:5
+  - verse: 14
+    references:
+      - Galatians 5:18
+  - verse: 15
+    references:
+      - Mark 14:36
+      - Galatians 4:6
+      - 2 Timothy 1:7
+  - verse: 17
+    references:
+      - Galatians 4:7
+      - 1 Peter 4:13
+  - verse: 18
+    references:
+      - 2 Corinthians 4:17–18
+  - verse: 20
+    references:
+      - Genesis 3:17–19
+  - verse: 21
+    references:
+      - Isaiah 65:17
+      - 2 Peter 3:13
+  - verse: 23
+    references:
+      - 2 Corinthians 5:4–5
+      - Philippians 3:20–21
+  - verse: 27
+    references:
+      - 1 Samuel 16:7
+      - Jeremiah 17:10
+  - verse: 28
+    references:
+      - Genesis 50:20
+      - Ephesians 1:11
+  - verse: 29
+    references:
+      - 2 Corinthians 3:18
+      - Colossians 1:18
+      - 1 John 3:2
+  - verse: 30
+    references:
+      - 2 Thessalonians 2:13–14
+  - verse: 31
+    references:
+      - Psalms 118:6
+  - verse: 32
+    references:
+      - Genesis 22:12
+      - John 3:16
+  - verse: 33
+    references:
+      - Isaiah 50:8–9
+  - verse: 34
+    references:
+      - Psalms 110:1
+      - Hebrews 7:25
+  - verse: 36
+    references:
+      - Psalms 44:22
+  - verse: 37
+    references:
+      - John 16:33
+      - 1 John 5:4
+  - verse: 38
+    references:
+      - John 10:28–29

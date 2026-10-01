@@ -1,0 +1,286 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/source-serif-4/opsz.css";
+@import "@fontsource-variable/source-serif-4/opsz-italic.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   Design tokens
+   Semantic names only: components never reference raw palette values.
+   Colour meaning: burgundy = action & reference · olive = historical context ·
+   antique gold ("thread") = connections · ink = text · stone = structure.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --background: #f5f1e8;          /* warm ivory paper */
+  --foreground: #182028;          /* dark ink */
+  --surface: #fbf9f4;             /* raised: popovers, cards, dialogs */
+  --surface-subtle: #ede7db;      /* bands, hover, inset areas */
+
+  /* shadcn contract */
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+  --primary: #6b2837;             /* muted burgundy */
+  --primary-foreground: #f8f3ea;
+  --secondary: var(--surface-subtle);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface-subtle);
+  --muted-foreground: #5c574f;    /* 6.4:1 on background */
+  --accent: #e8e1d3;              /* hover/selection surface (shadcn meaning) */
+  --accent-foreground: var(--foreground);
+  --destructive: #9b2c2c;
+  --border: #d8d0c1;              /* stone: decorative separators */
+  --input: #958a78;               /* 3:1: form control boundaries */
+  --ring: #6b2837;
+
+  /* Domain */
+  --scripture: #1e1b18;           /* warm ink for Scripture text */
+  --reference: #7a2e3f;           /* Scripture reference links */
+  --verse-number: #7c6333;        /* 5:1: small numerals stay legible */
+  --thread: #b19462;              /* antique gold: decorative only, never text */
+  --context: #58604a;             /* olive: history & context labels */
+  --highlight: #eadfc4;           /* selected / linked verse */
+
+  /* Depth: floating layers only (popovers, menus, dialogs). */
+  --overlay-shadow: 0 1px 2px rgb(24 32 40 / 0.06), 0 8px 24px -8px rgb(24 32 40 / 0.16);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* A quiet study room: warm charcoal, ivory ink, lamplight accents. */
+  --background: #1b1917;
+  --foreground: #e6dfd2;
+  --surface: #23201d;
+  --surface-subtle: #2a2622;
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+  --primary: #8f3e50;
+  --primary-foreground: #faf4ec;
+  --secondary: var(--surface-subtle);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface-subtle);
+  --muted-foreground: #a89f92;
+  --accent: #312c27;
+  --accent-foreground: var(--foreground);
+  --destructive: #e07a6f;
+  --border: #3a352f;
+  --input: #6b6358;
+  --ring: #d9a0ac;
+
+  --scripture: #ded6c7;
+  --reference: #d9a0ac;
+  --verse-number: #c4a874;
+  --thread: #a88e5e;
+  --context: #a9b08f;
+  --highlight: #3a3122;
+
+  --overlay-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-scripture: var(--scripture);
+  --color-reference: var(--reference);
+  --color-verse-number: var(--verse-number);
+  --color-thread: var(--thread);
+  --color-context: var(--context);
+  --color-highlight: var(--highlight);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+  --font-heading: var(--font-serif);
+
+  --shadow-overlay: var(--overlay-shadow);
+}
+
+@theme {
+  /* Restrained radii. xl is capped at lg so stock classes stay calm. */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.5rem;
+
+  /* Layout widths: reading < article < wide. */
+  --container-reading: 45rem;
+  --container-article: 52rem;
+  --container-wide: 80rem;
+
+  /* Motion: short and calm. */
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background font-sans text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-dvh bg-background text-foreground;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* One consistent, visible focus indicator for every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--highlight);
+    color: var(--foreground);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Honour reduced-motion everywhere, including Radix/tw-animate transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Typography utilities
+   Rule: serif body text always means Scripture. Commentary is set in sans.
+   ========================================================================== */
+
+/* Override size/leading/measure via variables, e.g. [--scripture-size:1rem],
+   so overrides never depend on utility ordering. */
+@utility scripture-text {
+  font-family: var(--font-serif);
+  font-size: var(
+    --scripture-size,
+    calc(clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem) * var(--scripture-scale, 1))
+  );
+  line-height: var(--scripture-leading, 1.8);
+  color: var(--scripture);
+  max-width: var(--scripture-measure, 58ch); /* ≈ 65–70 characters */
+  hanging-punctuation: first;
+}
+
+/* Reader text-size preference sets the scale. */
+[data-text-size="sm"] {
+  --scripture-scale: 0.9;
+}
+[data-text-size="lg"] {
+  --scripture-scale: 1.1;
+}
+[data-text-size="xl"] {
+  --scripture-scale: 1.22;
+}
+
+/* Commentary / editorial prose. */
+@utility prose-commentary {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 64ch;
+
+  /* Block siblings only: inline references inside a paragraph must not get margins. */
+  & > :where(p, ul, ol, blockquote, figure) + :where(p, ul, ol, blockquote, figure) {
+    margin-top: 1.25em;
+  }
+}
+
+/* Metadata labels: PROPHECY · MESSIANIC · ISAIAH */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* KJV prints the divine name (YHWH) in small capitals. */
+@utility divine-name {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+}
+
+/* Reference-style text link: quiet underline that strengthens on hover. */
+@utility link-quiet {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+  transition: text-decoration-color 160ms;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Navigation progress: a short segment of thread travelling across the top edge. */
+@keyframes thread-progress {
+  0% {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(300%);
+  }
+}

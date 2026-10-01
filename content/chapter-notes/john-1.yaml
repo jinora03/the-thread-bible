@@ -1,0 +1,109 @@
+book: john
+chapter: 1
+title: The Word made flesh
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: "John’s prologue ([[John 1:1–18]]) presents Jesus as the eternal Word: with God in the beginning, Himself God, the One through whom all things were made, who became flesh and dwelt among us. Its opening words return to the first words of Genesis, and its language of dwelling, glory, grace and truth recalls the tabernacle and the LORD’s self-revelation to Moses. The chapter then turns to John the Baptist’s testimony that Jesus is the Lamb of God and the Son of God, and to the first disciples who follow Him."
+relatedScripture:
+  - Genesis 1:1–3
+  - Exodus 34:5–7
+  - Exodus 40:34–35
+  - Isaiah 40:3–5
+  - Colossians 1:15–17
+  - Hebrews 1:1–3
+  - 1 John 1:1–3
+  - Revelation 19:13
+relatedIds:
+  - person:jesus-christ
+  - person:john-the-baptist
+  - doctrine:incarnation
+  - theme:light
+  - theme:creation
+  - theme:glory
+  - theme:grace
+  - theme:messiah
+  - typology:isaac-and-the-lamb
+  - typology:passover-lamb
+crossReferences:
+  - verse: 1
+    references:
+      - Genesis 1:1
+      - 1 John 1:1–2
+      - Revelation 19:13
+  - verse: 3
+    references:
+      - 1 Corinthians 8:6
+      - Colossians 1:16
+      - Hebrews 1:2
+  - verse: 4
+    references:
+      - Genesis 1:3
+      - John 8:12
+      - 2 Corinthians 4:6
+  - verse: 11
+    references:
+      - Isaiah 53:3
+  - verse: 12
+    references:
+      - Galatians 3:26
+      - 1 John 3:1
+  - verse: 13
+    references:
+      - John 3:3–6
+      - 1 Peter 1:23
+  - verse: 14
+    references:
+      - Exodus 40:34–35
+      - Philippians 2:7
+      - Hebrews 2:14
+  - verse: 17
+    references:
+      - Exodus 34:6
+  - verse: 18
+    references:
+      - Exodus 33:20
+      - John 14:9
+      - Colossians 1:15
+  - verse: 21
+    references:
+      - Deuteronomy 18:15
+      - Malachi 4:5
+  - verse: 23
+    references:
+      - Isaiah 40:3
+  - verse: 29
+    references:
+      - Genesis 22:8
+      - Exodus 12:3–5
+      - Isaiah 53:7
+      - 1 Corinthians 5:7
+      - 1 Peter 1:18–19
+      - 1 John 3:5
+  - verse: 32
+    references:
+      - Isaiah 11:2
+      - Isaiah 42:1
+      - Matthew 3:16–17
+  - verse: 34
+    references:
+      - Psalms 2:7
+  - verse: 41
+    references:
+      - Psalms 2:2
+      - Daniel 9:25
+  - verse: 45
+    references:
+      - Deuteronomy 18:15–18
+      - Luke 24:27
+  - verse: 49
+    references:
+      - Psalms 2:6–7
+      - John 12:13
+  - verse: 51
+    references:
+      - Genesis 28:12
+      - Daniel 7:13

@@ -1,0 +1,115 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: isa25-8-1co15-54
+    type: quotation
+    source: Isaiah 25:8
+    target: 1 Corinthians 15:54
+    basis: stated
+    description: Death swallowed up in victory
+  - id: isa40-3-jhn1-23
+    type: quotation
+    source: Isaiah 40:3
+    target: John 1:23
+    basis: stated
+    description: A voice crying in the wilderness
+  - id: isa52-13-act3-13
+    type: allusion
+    source: Isaiah 52:13
+    target: Acts 3:13
+    basis: supported
+    description: The servant exalted
+  - id: isa52-15-rom15-21
+    type: quotation
+    source: Isaiah 52:15
+    target: Romans 15:21
+    basis: stated
+    description: Those not told will see
+  - id: isa53-1-jhn12-38
+    type: quotation
+    source: Isaiah 53:1
+    target: John 12:38
+    basis: stated
+    description: Who has believed?
+  - id: isa53-1-rom10-16
+    type: quotation
+    source: Isaiah 53:1
+    target: Romans 10:16
+    basis: stated
+    description: Who has believed?
+  - id: isa53-3-mrk9-12
+    type: allusion
+    source: Isaiah 53:3
+    target: Mark 9:12
+    basis: supported
+    description: Despised and rejected
+  - id: isa53-3-jhn1-11
+    type: parallel
+    source: Isaiah 53:3
+    target: John 1:11
+    basis: supported
+    description: Not received by His own
+  - id: isa53-4-mat8-17
+    type: quotation
+    source: Isaiah 53:4
+    target: Matthew 8:17
+    basis: stated
+    description: He bore our griefs
+  - id: isa53-5-1pe2-24
+    type: quotation
+    source: Isaiah 53:5
+    target: 1 Peter 2:24
+    basis: stated
+    description: Wounded for our transgressions
+  - id: isa53-5-1co15-3
+    type: allusion
+    source: Isaiah 53:5
+    target: 1 Corinthians 15:3
+    basis: suggested
+    description: Died for our sins according to the Scriptures
+  - id: isa53-6-1pe2-25
+    type: quotation
+    source: Isaiah 53:6
+    target: 1 Peter 2:25
+    basis: stated
+    description: Like sheep gone astray
+  - id: isa53-7-act8-32
+    type: quotation
+    source: Isaiah 53:7–8
+    target: Acts 8:32–35
+    basis: stated
+    description: Like a lamb led to the slaughter
+  - id: isa53-7-mat27-12
+    type: parallel
+    source: Isaiah 53:7
+    target: Matthew 27:12–14
+    basis: supported
+    description: Silent before His accusers
+  - id: isa53-7-jhn1-29
+    type: allusion
+    source: Isaiah 53:7
+    target: John 1:29
+    basis: supported
+    description: The Lamb of God
+  - id: isa53-9-1pe2-22
+    type: quotation
+    source: Isaiah 53:9
+    target: 1 Peter 2:22
+    basis: stated
+    description: No deceit in His mouth
+  - id: isa53-12-luk22-37
+    type: quotation
+    source: Isaiah 53:12
+    target: Luke 22:37
+    basis: stated
+    description: Numbered with the transgressors
+  - id: isa53-12-heb9-28
+    type: allusion
+    source: Isaiah 53:12
+    target: Hebrews 9:28
+    basis: supported
+    description: Bore the sin of many

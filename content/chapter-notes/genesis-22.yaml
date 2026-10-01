@@ -1,0 +1,62 @@
+book: genesis
+chapter: 22
+title: The binding of Isaac
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: God tests Abraham by commanding him to offer Isaac, the son through whom the promise was to come. Abraham obeys, the angel of the LORD stops his hand, and God provides a ram in Isaac’s place. God then confirms His promise with an oath, and the New Testament returns to the chapter for Abraham’s faith, God’s unchanging oath, the promised seed, and the Father who did not spare His own Son.
+relatedScripture:
+  - Genesis 12:1–3
+  - Genesis 21:12
+  - Hebrews 11:17–19
+  - James 2:21–23
+  - Hebrews 6:13–18
+  - Galatians 3:16
+  - Romans 8:32
+relatedIds:
+  - person:abraham
+  - person:isaac
+  - place:mount-moriah
+  - event:binding-of-isaac
+  - typology:isaac-and-the-lamb
+  - theme:sacrifice
+  - theme:faith
+  - covenant:abrahamic
+  - promise:seed-promise
+crossReferences:
+  - verse: 1
+    references:
+      - Deuteronomy 8:2
+      - 1 Peter 1:6–7
+  - verse: 2
+    references:
+      - Hebrews 11:17
+      - 2 Chronicles 3:1
+      - John 3:16
+  - verse: 5
+    references:
+      - Hebrews 11:19
+  - verse: 8
+    references:
+      - John 1:29
+      - 1 Peter 1:19–20
+  - verse: 12
+    references:
+      - James 2:21–22
+      - Romans 8:32
+  - verse: 16
+    references:
+      - Hebrews 6:13–18
+      - Luke 1:72–73
+  - verse: 17
+    references:
+      - Genesis 15:5
+      - Hebrews 11:12
+  - verse: 18
+    references:
+      - Galatians 3:8
+      - Galatians 3:16
+      - Acts 3:25–26

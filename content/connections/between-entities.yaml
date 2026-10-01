@@ -1,0 +1,25 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: abrahamic-blessing
+    type: covenant
+    source: covenant:abrahamic
+    target: promise:blessing-to-the-nations
+    basis: stated
+    description: Blessing for all nations promised in the covenant
+  - id: davidic-king
+    type: covenant
+    source: covenant:davidic
+    target: prophecy:davidic-king
+    basis: stated
+    description: The promise of an everlasting throne
+  - id: passover-isaac
+    type: parallel
+    source: typology:passover-lamb
+    target: typology:isaac-and-the-lamb
+    basis: suggested
+    description: A lamb or ram offered in place of a son

@@ -1,0 +1,138 @@
+book: 1-corinthians
+chapter: 15
+title: The resurrection
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+overview: "Writing to a church where some denied the resurrection of the dead, Paul begins with the gospel he received: Christ died for our sins, was buried, and was raised on the third day according to the Scriptures. Christ’s resurrection is the firstfruits of the harvest to come, and as the last Adam He gives life to all who belong to Him. The chapter draws on the first Adam, the firstfruits offering, the psalms that put every enemy under the Messiah’s feet, and the prophets’ promise that death will be swallowed up in victory."
+relatedScripture:
+  - Isaiah 25:8
+  - Luke 24:44–46
+  - Acts 2:24–32
+  - Romans 5:12–19
+  - Romans 8:11
+  - Philippians 3:20–21
+  - 1 Thessalonians 4:13–18
+  - Revelation 21:4
+relatedIds:
+  - doctrine:resurrection
+  - theme:resurrection
+  - event:resurrection-of-jesus
+  - person:paul
+  - place:corinth
+  - typology:adam-and-christ
+  - prophecy:holy-one-not-see-corruption
+  - doctrine:glorification
+crossReferences:
+  - verse: 3
+    references:
+      - Isaiah 53:5–6
+      - Isaiah 53:12
+      - 1 Peter 2:24
+  - verse: 4
+    references:
+      - Psalms 16:10
+      - Hosea 6:2
+      - Matthew 12:40
+      - Luke 24:46
+  - verse: 5
+    references:
+      - Luke 24:34
+      - John 20:19
+  - verse: 7
+    references:
+      - Acts 1:3
+  - verse: 8
+    references:
+      - Acts 9:3–6
+  - verse: 9
+    references:
+      - Galatians 1:13
+      - 1 Timothy 1:13–15
+  - verse: 10
+    references:
+      - Ephesians 3:7–8
+  - verse: 17
+    references:
+      - Romans 4:25
+  - verse: 20
+    references:
+      - Leviticus 23:10–11
+      - Acts 26:23
+      - Colossians 1:18
+  - verse: 21
+    references:
+      - Genesis 3:19
+      - Romans 5:12
+  - verse: 22
+    references:
+      - Romans 5:17–19
+  - verse: 23
+    references:
+      - 1 Thessalonians 4:16
+  - verse: 24
+    references:
+      - Daniel 7:13–14
+  - verse: 25
+    references:
+      - Psalms 110:1
+  - verse: 26
+    references:
+      - 2 Timothy 1:10
+      - Revelation 20:14
+  - verse: 27
+    references:
+      - Psalms 8:6
+      - Ephesians 1:22
+      - Hebrews 2:8
+  - verse: 32
+    references:
+      - Isaiah 22:13
+  - verse: 36
+    references:
+      - John 12:24
+  - verse: 42
+    references:
+      - Daniel 12:2–3
+  - verse: 43
+    references:
+      - Philippians 3:21
+      - Colossians 3:4
+  - verse: 45
+    references:
+      - Genesis 2:7
+      - Romans 5:14
+  - verse: 47
+    references:
+      - John 3:13
+      - John 3:31
+  - verse: 49
+    references:
+      - Genesis 5:3
+      - Romans 8:29
+      - 1 John 3:2
+  - verse: 52
+    references:
+      - Matthew 24:31
+      - 1 Thessalonians 4:16–17
+  - verse: 54
+    references:
+      - Isaiah 25:8
+  - verse: 55
+    references:
+      - Hosea 13:14
+  - verse: 56
+    references:
+      - Romans 6:23
+      - Romans 7:9–11
+  - verse: 57
+    references:
+      - Romans 7:25
+      - 1 John 5:4
+  - verse: 58
+    references:
+      - 2 Chronicles 15:7
+      - Galatians 6:9

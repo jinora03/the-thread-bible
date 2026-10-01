@@ -1,0 +1,29 @@
+title: The Passover Lamb
+steps:
+  - reference: Exodus 12:3–13
+    title: The blood of the Passover lamb
+    label: Type
+  - reference: Isaiah 53:7
+    title: A lamb led to the slaughter
+    label: Prophecy
+  - reference: John 1:29
+    title: Behold the Lamb of God
+    label: Testimony
+  - reference: John 19:14–36
+    title: Not a bone broken
+    label: Fulfillment
+  - reference: 1 Corinthians 5:7
+    title: Christ our Passover
+    label: Teaching
+  - reference: 1 Peter 1:18–19
+    title: Redeemed by precious blood
+    label: Redemption
+  - reference: Revelation 5:6–12
+    title: Worthy is the Lamb
+    label: Glory
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.

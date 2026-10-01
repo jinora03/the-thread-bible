@@ -1,0 +1,19 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: zec12-10-jhn19-37
+    type: quotation
+    source: Zechariah 12:10
+    target: John 19:37
+    basis: stated
+    description: Looking on the One they pierced
+  - id: zec12-10-rev1-7
+    type: allusion
+    source: Zechariah 12:10
+    target: Revelation 1:7
+    basis: supported
+    description: Those who pierced Him will mourn

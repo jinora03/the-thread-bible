@@ -1,0 +1,19 @@
+review:
+  status: in-review
+  authors:
+    - The Thread Bible editors
+  reviewers: []
+  note: Sample content written for the design preview; not yet theologically reviewed.
+connections:
+  - id: jer31-31-luk22-20
+    type: covenant
+    source: Jeremiah 31:31
+    target: Luke 22:20
+    basis: supported
+    description: The new covenant in His blood
+  - id: jer31-31-heb8-8
+    type: quotation
+    source: Jeremiah 31:31–34
+    target: Hebrews 8:8–12
+    basis: stated
+    description: The new covenant promised
