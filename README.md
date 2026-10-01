@@ -27,7 +27,8 @@ npm run dev               # web on http://localhost:5173, API on :8787 (proxied 
 | `npm test` | Unit, integration, and component tests (Vitest) |
 | `npm run test:e2e` | Browser tests and axe accessibility checks (Playwright; see below) |
 | `npm run lint` | oxlint with the react, typescript, and jsx-a11y rules |
-| `npm run content:check` | Validates every file in `content/`; exits non-zero with a list of problems |
+| `npm run content:check` | Validates every file in `content/`, checks every reference against the Bible text, and reports what production would show. Fails on invalid content |
+| `npm run content:check:release` | The same, and also fails if production would show no study content or hide the home page's featured items. Run before deploying |
 | `npm run scripture:fetch` / `scripture:import` | The two halves of `setup` |
 | `npm run db:generate` | Generate a Drizzle migration after changing `server/db/schema.ts` |
 
@@ -67,8 +68,11 @@ Editorial content never embeds Scripture text. It stores references, and the tex
 
 **Accounts and the library:**
 - Accounts are email + password (Better Auth), with HTTP-only session cookies.
-- Signed out, the library (bookmarks, notes, and reading progress) lives in `localStorage`.
-- On sign-in or sign-up, the local library is imported into the account once. After that, reads and writes go to the API with optimistic updates.
+- Signed out, the library (bookmarks, notes, and reading progress) lives in `localStorage`. A save the browser refuses (storage full or disabled) is reported, not shown as saved. Stored items that can't be read are set aside, and offered for download on the Library page, instead of erasing the rest.
+- While signed in, anything in the browser library is imported into the account. Only what was sent is then removed from the browser, and a failed import keeps everything there and offers a retry.
+- Each account's library is cached separately (`['library', userId]`), and responses that arrive after sign-out are dropped, so one reader's data never appears in another's view.
+- Changes show immediately and are confirmed by the server. A failed change undoes only itself, and the note editor stays open with the draft until a save succeeds.
+- **Validation is shared** (`shared/schemas`): references must name a real book, chapter and verse range, and the API also checks verses against the imported text. Notes, timestamps, study ids and import sizes follow one set of rules in the form, the API and browser storage.
 
 **The frontend:**
 - Routes load their data in React Router loaders, via `queryClient.ensureQueryData`, so navigation never waterfalls. The reader also prefetches the next chapter.
@@ -82,7 +86,19 @@ Content lives in `content/`, one YAML file per entry. Every file carries a `revi
 - `preview` (the development default) serves everything and labels unreviewed entries in the UI.
 - `published` (the production default) serves only published entries. Connections to hidden entries are dropped.
 
-**All current content is sample material marked `in-review`.** A production build therefore serves no editorial content until entries have been reviewed and published.
+**All current content is sample material marked `in-review`.** A production build therefore serves Scripture, search and the library, but no study content, until entries have been reviewed and published:
+- Readers see "in preparation" messages where content would be, not broken pages.
+- The server logs a warning at startup when nothing is published.
+- `npm run content:check` reports what production would show, collection by collection. `npm run content:check:release` fails until it is ready.
+- Content is never published automatically. Publishing means recording a completed review in the file (see [content/README.md](content/README.md)).
+
+## Data and privacy
+
+- **Account data lives only in the database** (`data/thread-bible.db` by default): users, hashed passwords, sessions, bookmarks and notes. Database files (`*.db`, `*.sqlite`, and their `-wal`/`-shm` sidecars) are gitignored wherever they are, and so is `.env`.
+- **The Scripture text is reproducible,** so never share a database to share the Bible text: `npm run setup` downloads and imports it from eBible.org.
+- **Share the project through Git** (or GitHub's "Download ZIP"), not by zipping the folder. Those include only committed files, so `data/` and `.env` stay out.
+- If a database or `.env` was ever shared, generate a new `BETTER_AUTH_SECRET` (it signs sessions), and, for a live deployment, revoke existing sessions.
+- The end-to-end tests run on a copy of the development database with every account removed (see `e2e/serve-api.ts`).
 
 ## Translations and licensing
 

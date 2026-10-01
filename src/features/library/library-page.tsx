@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { Cloud, MonitorSmartphone, Trash2 } from 'lucide-react'
 import { Link } from 'react-router'
 import { EmptyState } from '@/components/content/empty-state'
@@ -9,6 +10,8 @@ import { SectionHeading } from '@/components/typography/section-heading'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { pageTitle } from '@/config/site'
+import { withSaveFeedback } from '@/features/library/library-errors'
+import { setAsideItems } from '@/features/library/local-library'
 import { useLibrary } from '@/features/library/use-library'
 import { entityHref } from '@/lib/entity-href'
 import { entityQuery } from '@/services/content'
@@ -16,7 +19,11 @@ import { chapterHref, formatChapter, formatReference } from '@shared/scripture/r
 import type { Study } from '@shared/types/content'
 
 const dateFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' })
-const formatDate = (iso: string) => dateFormat.format(new Date(iso))
+// An unreadable date shows as unknown rather than breaking the page.
+const formatDate = (iso: string) => {
+  const date = new Date(iso)
+  return Number.isNaN(date.getTime()) ? 'date unknown' : dateFormat.format(date)
+}
 
 /** Personal library: saved passages, notes and reading progress, synced when signed in. */
 export function LibraryPage() {
@@ -29,6 +36,7 @@ export function LibraryPage() {
       <PageHeader title="Library" description="Your saved passages, notes and reading, gathered in one place.">
         <SyncStatus />
       </PageHeader>
+      <SetAsideNotice />
 
       {library.isLoading ? (
         <div role="status" aria-label="Loading your library" className="mt-14 space-y-4">
@@ -62,7 +70,7 @@ export function LibraryPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => library.actions.removeBookmark(bookmark.id)}
+                      onClick={() => void withSaveFeedback(library.actions.removeBookmark(bookmark.id))}
                       aria-label={`Remove ${formatReference(bookmark.reference)} from saved passages`}
                     >
                       <Trash2 />
@@ -93,7 +101,7 @@ export function LibraryPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => library.actions.deleteNote(note.id)}
+                        onClick={() => void withSaveFeedback(library.actions.deleteNote(note.id))}
                         aria-label={`Delete note on ${formatReference(note.reference)}`}
                       >
                         <Trash2 />
@@ -176,6 +184,35 @@ function SyncStatus() {
       <Link to="/sign-in?next=/library" className="font-medium text-reference link-quiet">
         Sign in to sync across devices
       </Link>
+    </div>
+  )
+}
+
+/** Items in this browser that could not be read are kept, and offered here, rather than silently lost. */
+function SetAsideNotice() {
+  const [count, setCount] = useState(setAsideItems.count)
+  if (count === 0) return null
+  return (
+    <div role="status" className="mt-8 rounded-md border px-4 py-3 text-sm">
+      <p>
+        {count === 1 ? 'One saved item' : `${count} saved items`} in this browser could not be read, so{' '}
+        {count === 1 ? 'it was' : 'they were'} set aside instead of deleted.
+      </p>
+      <div className="mt-2 flex gap-2">
+        <Button variant="outline" size="sm" onClick={() => setAsideItems.download()}>
+          Download {count === 1 ? 'it' : 'them'}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            setAsideItems.dismiss()
+            setCount(0)
+          }}
+        >
+          Dismiss
+        </Button>
+      </div>
     </div>
   )
 }

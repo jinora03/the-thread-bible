@@ -92,9 +92,15 @@ export function createContentRepository(store: ContentStore) {
   const referencedIds = (entity: Entity, views: ConnectionView[]): EntityId[] => {
     const ids: EntityId[] = [...(entity.relatedIds ?? [])]
     const collect = (value: unknown) => {
-      if (typeof value === 'string') for (const node of parseRichText(value)) if (node.type === 'entity') ids.push(node.id)
-      else if (Array.isArray(value)) value.forEach(collect)
-      else if (value && typeof value === 'object') Object.values(value).forEach(collect)
+      if (typeof value === 'string') {
+        for (const node of parseRichText(value)) {
+          if (node.type === 'entity') ids.push(node.id)
+        }
+      } else if (Array.isArray(value)) {
+        value.forEach(collect)
+      } else if (value && typeof value === 'object') {
+        Object.values(value).forEach(collect)
+      }
     }
     collect(entity)
     if (entity.kind === 'doctrine') ids.push(...(entity.article?.furtherStudyIds ?? []))

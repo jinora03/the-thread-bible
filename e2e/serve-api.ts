@@ -23,4 +23,15 @@ const database = new Database(source, { readonly: true })
 await database.backup(target)
 database.close()
 
+// Keep the Scripture, drop every account: the copy must not carry development
+// users, password hashes or sessions. VACUUM rewrites the file so deleted
+// rows cannot be recovered from it.
+const copy = new Database(target)
+copy.exec(`
+  DELETE FROM reading_state; DELETE FROM notes; DELETE FROM bookmarks;
+  DELETE FROM session; DELETE FROM account; DELETE FROM verification; DELETE FROM user;
+  VACUUM;
+`)
+copy.close()
+
 await import('../server/index.ts')

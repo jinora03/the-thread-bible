@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -14,6 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field'
 import { Textarea } from '@/components/ui/textarea'
+import { saveErrorMessage } from '@/features/library/library-errors'
 import { NOTE_MAX_LENGTH, noteTextSchema } from '@shared/schemas/library'
 import { formatReference } from '@shared/scripture/reference'
 import type { ScriptureReference } from '@shared/types/scripture'
@@ -28,18 +30,28 @@ interface NoteDialogProps {
   reference: ScriptureReference | null
   /** Whether notes go to the reader's account (true) or this browser (false). */
   synced: boolean
-  onSave: (reference: ScriptureReference, text: string) => void
+  /** Resolves once the note is stored; rejects if it could not be. */
+  onSave: (reference: ScriptureReference, text: string) => Promise<void>
   onClose: () => void
   /** Lets the caller return focus to whatever opened the dialog. */
   onCloseAutoFocus?: (event: Event) => void
 }
 
 export function NoteDialog({ reference, synced, onSave, onClose, onCloseAutoFocus }: NoteDialogProps) {
+  // While a save is in flight the dialog stays open, so a failure can never lose the draft.
+  const [saving, setSaving] = useState(false)
   return (
-    <Dialog open={reference !== null} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={reference !== null} onOpenChange={(open) => !open && !saving && onClose()}>
       <DialogContent onCloseAutoFocus={onCloseAutoFocus}>
         {reference && (
-          <NoteForm key={formatReference(reference)} reference={reference} synced={synced} onSave={onSave} onDone={onClose} />
+          <NoteForm
+            key={formatReference(reference)}
+            reference={reference}
+            synced={synced}
+            onSave={onSave}
+            onSavingChange={setSaving}
+            onDone={onClose}
+          />
         )}
       </DialogContent>
     </Dialog>
@@ -50,11 +62,13 @@ function NoteForm({
   reference,
   synced,
   onSave,
+  onSavingChange,
   onDone,
 }: {
   reference: ScriptureReference
   synced: boolean
   onSave: NoteDialogProps['onSave']
+  onSavingChange: (saving: boolean) => void
   onDone: () => void
 }) {
   const label = formatReference(reference)
@@ -63,9 +77,21 @@ function NoteForm({
     defaultValues: { text: '' },
   })
   const error = form.formState.errors.text
+  const saving = form.formState.isSubmitting
+  const [saveError, setSaveError] = useState<string | null>(null)
 
-  const onSubmit = (values: NoteFormValues) => {
-    onSave(reference, values.text)
+  // Success is reported only once the note is stored; on failure the draft stays for another try.
+  const onSubmit = async (values: NoteFormValues) => {
+    setSaveError(null)
+    onSavingChange(true)
+    try {
+      await onSave(reference, values.text)
+    } catch (failure) {
+      setSaveError(saveErrorMessage(failure))
+      return
+    } finally {
+      onSavingChange(false)
+    }
     toast.success(`Note on ${label} saved to your Library`)
     onDone()
   }
@@ -94,13 +120,21 @@ function NoteForm({
         <FieldError id="note-text-error" errors={[error]} />
       </Field>
 
+      {saveError && (
+        <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+          {saveError} Your note is still here.
+        </p>
+      )}
+
       <DialogFooter>
         <DialogClose asChild>
-          <Button type="button" variant="ghost">
+          <Button type="button" variant="ghost" disabled={saving}>
             Cancel
           </Button>
         </DialogClose>
-        <Button type="submit">Save note</Button>
+        <Button type="submit" disabled={saving}>
+          {saving ? 'Saving…' : saveError ? 'Try again' : 'Save note'}
+        </Button>
       </DialogFooter>
     </form>
   )

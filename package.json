@@ -17,6 +17,7 @@
     "scripture:import": "node --import tsx server/scripts/import-scripture.ts",
     "setup": "npm run scripture:fetch && npm run scripture:import",
     "content:check": "node --import tsx server/scripts/check-content.ts",
+    "content:check:release": "node --import tsx server/scripts/check-content.ts --release",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"

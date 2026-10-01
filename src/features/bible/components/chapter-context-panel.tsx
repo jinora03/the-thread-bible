@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConnectionList } from '@/features/connections/connection-list'
 import { connectionsForVerse, referencesForVerse } from '@/features/bible/study-notes'
+import { withSaveFeedback } from '@/features/library/library-errors'
 import type { LibraryActions } from '@/features/library/use-library'
 import { formatChapter, formatReference, referenceTouchesChapter } from '@shared/scripture/reference'
 import type { ChapterStudyResponse } from '@shared/types/api'
@@ -289,7 +290,7 @@ function NotesTab({
             <Button
               variant="ghost"
               size="icon-sm"
-              onClick={() => libraryActions.deleteNote(note.id)}
+              onClick={() => void withSaveFeedback(libraryActions.deleteNote(note.id))}
               aria-label={`Delete note on ${formatReference(note.reference)}`}
             >
               <Trash2 />

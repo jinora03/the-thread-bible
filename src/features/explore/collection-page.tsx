@@ -73,7 +73,7 @@ function InPreparation({ collection, available }: { collection: ExploreCollectio
     <EmptyState
       headingLevel={2}
       title={`${collection.title} are in preparation`}
-      description={`This collection is part of the plan for the library but has no published entries yet. ${collection.description}`}
+      description={`Entries appear here once they have been reviewed. ${collection.description}`}
       action={
         <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
           {available.slice(0, 5).map((item) => (

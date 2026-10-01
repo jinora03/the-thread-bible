@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useLocation, useNavigate, useParams } from 'react-router'
-import { toast } from 'sonner'
 import { z } from 'zod'
 import { EmptyState } from '@/components/content/empty-state'
 import { ContextSidebar } from '@/components/layout/context-sidebar'
@@ -20,6 +19,7 @@ import { ReaderNavigation } from '@/features/bible/components/reader-navigation'
 import { ReaderToolbar } from '@/features/bible/components/reader-toolbar'
 import { SelectionBar } from '@/features/bible/components/selection-bar'
 import { setReaderPreference, useReaderPreferences } from '@/hooks/reader-preferences'
+import { withSaveFeedback } from '@/features/library/library-errors'
 import { isBookmarked, useLibrary } from '@/features/library/use-library'
 import { chapterStudyQuery } from '@/services/content'
 import { useChapter, useTranslation } from '@/hooks/use-scripture'
@@ -138,10 +138,12 @@ function ChapterReader({ book, chapter }: { book: BibleBook; chapter: number }) 
     else openSheet(window.matchMedia('(min-width: 768px)').matches ? 'right' : 'bottom')
   }
 
+  // The toast confirms what was actually saved; a failure says so instead.
   const toggleBookmark = (reference: Reference) => {
-    const added = library.actions.toggleBookmark(reference)
     const label = formatReference(reference)
-    toast.success(added ? `${label} saved to your Library` : `Removed ${label} from your Library`)
+    void withSaveFeedback(library.actions.toggleBookmark(reference), (added) =>
+      added ? `${label} saved to your Library` : `Removed ${label} from your Library`,
+    )
   }
 
   const openNote = (reference: Reference) => {

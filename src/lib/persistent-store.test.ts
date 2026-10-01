@@ -38,6 +38,26 @@ describe('createPersistentStore', () => {
     expect(listener).toHaveBeenCalledTimes(1)
   })
 
+  it('reports a refused write and keeps the previous state', () => {
+    const store = createPersistentStore('test-store', schema, fallback)
+    const listener = vi.fn()
+    store.subscribe(listener)
+    const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError')
+    })
+
+    expect(store.update(() => ({ count: 5 }))).toBe(false)
+    expect(store.getSnapshot()).toEqual(fallback)
+    expect(listener).not.toHaveBeenCalled()
+    setItem.mockRestore()
+  })
+
+  it('lets callers recover data that fails validation', () => {
+    localStorage.setItem('test-store', JSON.stringify({ count: '4' }))
+    const store = createPersistentStore('test-store', schema, fallback, { recover: (raw) => ({ count: Number((raw as { count: string }).count) }) })
+    expect(store.getSnapshot()).toEqual({ count: 4 })
+  })
+
   it('picks up changes made in other tabs', () => {
     const store = createPersistentStore('test-store', schema, fallback)
     const listener = vi.fn()

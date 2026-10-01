@@ -7,6 +7,7 @@ import {
   parseVerseHash,
   referenceHref,
   referenceIncludesVerse,
+  referenceProblem,
   referenceTouchesChapter,
 } from './reference'
 
@@ -36,6 +37,18 @@ describe('parseReference', () => {
     expect(parseReference('Isaiah 53-53')).toEqual({ book: 'isaiah', chapter: 53 })
   })
 
+  // Found in review: these used to be accepted, or silently changed meaning.
+  it.each(['John 3:0', 'John 3:999', 'John 3-4:5', 'John 0:1', 'Psalm 119:177', 'John 3:16-0', 'John 3:16-4'])(
+    'rejects %j instead of guessing',
+    (input) => {
+      expect(parseReference(input)).toBeUndefined()
+    },
+  )
+
+  it('accepts the longest chapter in full', () => {
+    expect(parseReference('Psalm 119:176')).toEqual({ book: 'psalms', chapter: 119, verse: 176 })
+  })
+
   it.each(['', 'John', 'Hezekiah 1:1', 'Jude 2', 'Romans 17:1', 'John 1:5-3', 'Isaiah 53-52', 'Genesis 1:1; 2:1'])(
     'rejects %j',
     (input) => {
@@ -53,6 +66,33 @@ describe('parseReference', () => {
         ...(lastChapter > 1 ? [{ book: book.id, chapter: 1, verse: 3, endChapter: 2, endVerse: 4 }] : []),
       ]
       for (const reference of cases) expect(parseReference(formatReference(reference)), formatReference(reference)).toEqual(reference)
+    }
+  })
+})
+
+describe('referenceProblem', () => {
+  it.each([
+    [{ book: 'hezekiah', chapter: 1 }, /not a book/],
+    [{ book: 'john', chapter: 22 }, /John has 21 chapters/],
+    [{ book: 'john', chapter: 3, verse: 0 }, /start at 1/],
+    [{ book: 'john', chapter: 3, verse: 1.5 }, /start at 1/],
+    [{ book: 'john', chapter: 3, endVerse: 5 }, /must start at a verse/],
+    [{ book: 'john', chapter: 3, verse: 16, endChapter: 4 }, /must end at a verse/],
+    [{ book: 'john', chapter: 3, verse: 16, endVerse: 2 }, /ends before it starts/],
+    [{ book: 'john', chapter: 3, endChapter: 2 }, /must end after chapter 3/],
+  ])('explains %j', (reference, message) => {
+    expect(referenceProblem(reference)).toMatch(message)
+  })
+
+  it('accepts valid references of every form', () => {
+    for (const reference of [
+      { book: 'john', chapter: 3 },
+      { book: 'john', chapter: 3, verse: 16 },
+      { book: 'john', chapter: 3, verse: 16, endVerse: 18 },
+      { book: 'isaiah', chapter: 52, verse: 13, endChapter: 53, endVerse: 12 },
+      { book: 'isaiah', chapter: 52, endChapter: 53 },
+    ]) {
+      expect(referenceProblem(reference)).toBeUndefined()
     }
   })
 })

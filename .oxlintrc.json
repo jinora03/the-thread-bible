@@ -2,6 +2,7 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["react", "typescript", "oxc", "jsx-a11y"],
   "rules": {
+    "curly": ["error", "multi-line"],
     "react/rules-of-hooks": "error",
     "react/exhaustive-deps": "warn",
     "jsx-a11y/prefer-tag-over-role": "off",

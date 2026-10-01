@@ -8,7 +8,12 @@ import { paths } from './paths'
 
 const env = loadEnv()
 const database = createDatabase(env.DATABASE_PATH)
-const { app } = createApp({ env, database, contentRoot: paths.content })
+const { app, content } = createApp({ env, database, contentRoot: paths.content })
+
+// Publishing is an editorial step; say plainly when production has nothing to show yet.
+if (env.CONTENT_STAGE === 'published' && content.allEntities().length === 0) {
+  console.warn('! No study content is published yet, so readers will see Scripture only. Run `npm run content:check` for details.')
+}
 
 // In production the same process serves the built frontend (SPA fallback to index.html).
 if (env.NODE_ENV === 'production') {

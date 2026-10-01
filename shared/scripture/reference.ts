@@ -8,7 +8,36 @@ const referencePattern =
 // En and em dashes (U+2013, U+2014) in typed or pasted references count as hyphens.
 const rangeDashes = new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`, 'g')
 
-/** Parses a human-written reference. Returns `undefined` for anything invalid. */
+/** No chapter has more verses than Psalm 119 (176). Exact counts depend on the translation. */
+export const MAX_VERSES_IN_CHAPTER = 176
+
+const isWhole = (value: number | undefined, min: number, max: number) =>
+  value === undefined || (Number.isInteger(value) && value >= min && value <= max)
+
+/**
+ * Why a structured reference is invalid, or undefined if it is valid: an
+ * unknown book, a chapter outside the book, a verse below 1 or above any
+ * chapter's length, or a range that ends before it starts or mixes forms.
+ * Whether a verse exists in a particular translation is checked separately,
+ * against the translation's text.
+ */
+export function referenceProblem(reference: ScriptureReference): string | undefined {
+  const book = getBook(reference.book)
+  if (!book) return `"${reference.book}" is not a book of the Bible`
+  const { chapter, verse, endChapter, endVerse } = reference
+  if (!isWhole(chapter, 1, book.chapterCount)) return `${book.name} has ${book.chapterCount} chapters`
+  if (!isWhole(endChapter, chapter + 1, book.chapterCount)) return `The range must end after chapter ${chapter} and within ${book.name}`
+  if (!isWhole(verse, 1, MAX_VERSES_IN_CHAPTER) || !isWhole(endVerse, 1, MAX_VERSES_IN_CHAPTER)) return 'Verse numbers start at 1'
+  if (verse === undefined && endVerse !== undefined) return 'A range ending at a verse must start at a verse'
+  if (verse !== undefined && endChapter !== undefined && endVerse === undefined) return 'A range from a verse must end at a verse'
+  if (verse !== undefined && endVerse !== undefined && endChapter === undefined && endVerse < verse) return 'The range ends before it starts'
+  return undefined
+}
+
+/**
+ * Parses a human-written reference. Returns `undefined` for anything invalid
+ * or ambiguous, rather than guessing: "John 3-4:5" is rejected, not read as John 3.
+ */
 export function parseReference(input: string): ScriptureReference | undefined {
   const normalized = input
     .toLowerCase()
@@ -24,10 +53,7 @@ export function parseReference(input: string): ScriptureReference | undefined {
   const book = findBook(bookPart)
   if (!book) return undefined
 
-  const chapter = Number(chapterPart)
-  if (chapter < 1 || chapter > book.chapterCount) return undefined
-
-  const reference: ScriptureReference = { book: book.id, chapter }
+  const reference: ScriptureReference = { book: book.id, chapter: Number(chapterPart) }
 
   if (versePart) {
     reference.verse = Number(versePart)
@@ -37,20 +63,21 @@ export function parseReference(input: string): ScriptureReference | undefined {
     } else if (rangeA) {
       reference.endVerse = Number(rangeA)
     }
-  } else if (rangeA && !rangeB) {
+  } else if (rangeA && rangeB) {
+    // "John 3-4:5": a chapter cannot run to a verse.
+    return undefined
+  } else if (rangeA) {
     reference.endChapter = Number(rangeA)
   }
 
-  if (reference.endChapter !== undefined) {
-    if (reference.endChapter < chapter || reference.endChapter > book.chapterCount) return undefined
-    if (reference.endChapter === chapter) delete reference.endChapter
+  // Collapse ranges that end where they start: "John 1:29-29" is John 1:29.
+  if (reference.endChapter === reference.chapter) {
+    delete reference.endChapter
+    if (reference.verse === undefined) delete reference.endVerse
   }
-  if (reference.endVerse !== undefined && reference.verse !== undefined && reference.endChapter === undefined) {
-    if (reference.endVerse < reference.verse) return undefined
-    if (reference.endVerse === reference.verse) delete reference.endVerse
-  }
+  if (reference.endChapter === undefined && reference.endVerse !== undefined && reference.endVerse === reference.verse) delete reference.endVerse
 
-  return reference
+  return referenceProblem(reference) ? undefined : reference
 }
 
 /**

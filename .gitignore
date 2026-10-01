@@ -29,6 +29,12 @@ dist-e2e
 .env.*
 !.env.example
 data/
+# Databases anywhere (DATABASE_PATH can point outside data/): they hold accounts and sessions.
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
 
 # Test output
 test-results/

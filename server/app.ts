@@ -16,6 +16,7 @@ import { createApiBibleProvider, parseBibleList } from './scripture/api-bible-pr
 import { createLocalProvider } from './scripture/local-provider'
 import type { ScriptureProvider } from './scripture/provider'
 import { createScriptureRegistry } from './scripture/registry'
+import { createVerseIndex } from './scripture/verse-index'
 import { createSearchService } from './search/search-service'
 
 export interface AppDependencies {
@@ -36,6 +37,7 @@ export function createApp({ env, database, contentRoot, providers }: AppDependen
     ...(env.API_BIBLE_KEY && apiBibles.length > 0 ? [createApiBibleProvider({ apiKey: env.API_BIBLE_KEY, bibles: apiBibles })] : []),
     ...(providers ?? []),
   ])
+  const verses = createVerseIndex(database.sqlite)
   const search = createSearchService(content, scripture)
   const auth = createAuth(database.db, env)
   const library = createLibraryRepository(database.db)
@@ -45,10 +47,10 @@ export function createApp({ env, database, contentRoot, providers }: AppDependen
 
   app.get('/api/health', (c) => c.json({ ok: true, contentStage: env.CONTENT_STAGE }))
   app.on(['GET', 'POST'], '/api/auth/*', (c) => auth.handler(c.req.raw))
-  app.route('/api/scripture', scriptureRoutes(scripture))
+  app.route('/api/scripture', scriptureRoutes(scripture, verses))
   app.route('/api/content', contentRoutes(content))
   app.route('/api/search', searchRoutes(search))
-  app.route('/api/library', libraryRoutes(auth, library))
+  app.route('/api/library', libraryRoutes(auth, library, verses))
 
   app.notFound((c) => c.json<ApiErrorBody>({ error: { code: 'not_found', message: `No API route for ${c.req.path}` } }, 404))
   app.onError((error, c) => {
@@ -57,5 +59,5 @@ export function createApp({ env, database, contentRoot, providers }: AppDependen
     return c.json<ApiErrorBody>({ error: { code: 'internal_error', message: 'Something went wrong on the server.' } }, 500)
   })
 
-  return { app, auth }
+  return { app, auth, content }
 }

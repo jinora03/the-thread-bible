@@ -74,6 +74,8 @@ describe('scripture', () => {
     ['/api/scripture/kjv/genesis/1', 404, 'chapter_not_available'],
     ['/api/scripture/xyz/john/1', 404, 'unknown_translation'],
     ['/api/scripture/kjv/passage?ref=nonsense', 400, 'invalid_reference'],
+    ['/api/scripture/kjv/passage?ref=John%201%3A37', 400, 'invalid_reference'],
+    ['/api/scripture/kjv/passage?ref=John%203-4%3A5', 400, 'invalid_reference'],
     ['/api/nowhere', 404, 'not_found'],
   ])('%s → %i %s', async (path, status, code) => {
     expect(await errorCode(path)).toEqual({ status, code })
@@ -166,6 +168,59 @@ describe('accounts and library', () => {
     const { id } = (await created.json()) as { id: string }
     expect((await request(`/api/library/notes/${id}`, authed({ method: 'DELETE' }))).status).toBe(204)
     expect((await request(`/api/library/notes/${id}`, authed({ method: 'DELETE' }))).status).toBe(404)
+  })
+
+  it('rejects passages that are not in the text', async () => {
+    const save = (reference: unknown) => request('/api/library/bookmarks', authed({ method: 'POST', body: JSON.stringify({ reference }) }))
+    // The fixture's John 1 ends at verse 36.
+    const pastTheEnd = await save({ book: 'john', chapter: 1, verse: 40 })
+    expect(pastTheEnd.status).toBe(400)
+    expect(((await pastTheEnd.json()) as ApiErrorBody).error.code).toBe('unknown_verse')
+    expect((await save({ book: 'hezekiah', chapter: 1 })).status).toBe(400)
+    expect((await save({ book: 'john', chapter: 1, verse: 0 })).status).toBe(400)
+    expect((await save({ book: 'john', chapter: 1, verse: 30, endVerse: 29 })).status).toBe(400)
+  })
+
+  it('rejects reading progress for chapters that do not exist', async () => {
+    const put = (lastRead: unknown) => request('/api/library/reading', authed({ method: 'PUT', body: JSON.stringify({ lastRead }) }))
+    expect((await put({ bookId: 'nowhere', chapter: 1 })).status).toBe(400)
+    expect((await put({ bookId: 'john', chapter: 22 })).status).toBe(400)
+  })
+
+  describe('import validation', () => {
+    const at = '2026-10-01T00:00:00.000Z'
+    const note = (overrides: Record<string, unknown> = {}) => ({
+      id: randomUUID(),
+      reference: { book: 'john', chapter: 1, verse: 29 },
+      text: 'Behold the Lamb',
+      createdAt: at,
+      updatedAt: at,
+      ...overrides,
+    })
+    const library = (overrides: Record<string, unknown> = {}) => ({ bookmarks: [], notes: [], reading: { lastRead: null, lastStudy: null }, ...overrides })
+    const importing = (body: unknown) => request('/api/library/import', authed({ method: 'POST', body: JSON.stringify(body) }))
+
+    it.each([
+      ['an over-long note', library({ notes: [note({ text: 'x'.repeat(2001) })] })],
+      ['an empty note', library({ notes: [note({ text: '   ' })] })],
+      ['an unreadable timestamp', library({ notes: [note({ createdAt: 'last Tuesday' })] })],
+      ['a note on a verse that does not exist', library({ notes: [note({ reference: { book: 'john', chapter: 1, verse: 99 } })] })],
+      ['a study id of the wrong kind', library({ reading: { lastRead: null, lastStudy: { studyId: 'theme:faith', sectionId: 'intro', updatedAt: at } } })],
+      ['more notes than an account holds', library({ notes: Array.from({ length: 1001 }, () => note()) })],
+    ])('rejects %s', async (_case, body) => {
+      expect((await importing(body)).status).toBe(400)
+    })
+
+    it('rejects a body over the size limit', async () => {
+      const response = await importing({ padding: 'x'.repeat(4 * 1024 * 1024 + 1) })
+      expect(response.status).toBe(413)
+    })
+
+    it('accepts a valid library', async () => {
+      const response = await importing(library({ notes: [note({ text: 'Imported note' })] }))
+      expect(response.status).toBe(200)
+      expect(((await response.json()) as LibraryData).notes.map((saved) => saved.text)).toContain('Imported note')
+    })
   })
 
   it('records reading progress', async () => {

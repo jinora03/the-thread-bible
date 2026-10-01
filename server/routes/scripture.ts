@@ -3,11 +3,12 @@ import { getBook } from '@shared/scripture/books'
 import { parseReference } from '@shared/scripture/reference'
 import { apiError } from '../http'
 import type { ScriptureRegistry } from '../scripture/registry'
+import type { VerseIndex } from '../scripture/verse-index'
 
 // Scripture text never changes; let browsers and proxies cache it.
 const IMMUTABLE = 'public, max-age=86400, stale-while-revalidate=604800'
 
-export function scriptureRoutes(scripture: ScriptureRegistry) {
+export function scriptureRoutes(scripture: ScriptureRegistry, verses: VerseIndex) {
   const app = new Hono()
 
   app.get('/translations', async (c) => c.json(await scripture.translations()))
@@ -15,6 +16,8 @@ export function scriptureRoutes(scripture: ScriptureRegistry) {
   app.get('/:translation/passage', async (c) => {
     const reference = parseReference(c.req.query('ref') ?? '')
     if (!reference) apiError(400, 'invalid_reference', 'Pass a reference such as ?ref=Isaiah 53:4-6')
+    const problem = verses.problem(reference)
+    if (problem) apiError(400, 'invalid_reference', problem)
     if (!(await scripture.translation(c.req.param('translation')))) apiError(404, 'unknown_translation', 'No such translation.')
     const passage = await scripture.getPassage(c.req.param('translation'), reference)
     if (!passage) apiError(404, 'passage_not_found', 'None of the requested verses are available in this translation.')

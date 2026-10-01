@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router'
+import { EmptyState } from '@/components/content/empty-state'
 import { PageContainer } from '@/components/layout/page-container'
 import { Heading } from '@/components/typography/heading'
 import { MetadataRow } from '@/components/typography/metadata-row'
@@ -44,16 +45,32 @@ export function StudiesPage() {
         </section>
       )}
 
-      <section aria-labelledby="all-studies" className="mt-14">
-        <SectionHeading id="all-studies" title="More studies" />
-        <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {others.map((study) => (
-            <li key={study.id} className="flex">
-              <StudyPreview study={study} headingLevel={3} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {others.length > 0 && (
+        <section aria-labelledby="all-studies" className="mt-14">
+          <SectionHeading id="all-studies" title={featured ? 'More studies' : 'All studies'} />
+          <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {others.map((study) => (
+              <li key={study.id} className="flex">
+                <StudyPreview study={study} headingLevel={3} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {!featured && others.length === 0 && (
+        <EmptyState
+          className="mt-14"
+          headingLevel={2}
+          title="Studies are in preparation"
+          description="Each study appears here once it has been reviewed. Meanwhile, the Bible and its connections are ready to read."
+          action={
+            <Link to="/bible" className="text-sm font-medium text-reference link-quiet">
+              Open the Bible
+            </Link>
+          }
+        />
+      )}
     </PageContainer>
   )
 }

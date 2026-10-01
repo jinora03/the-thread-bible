@@ -4,24 +4,46 @@ import type { z } from 'zod'
 export interface PersistentStore<T> {
   getSnapshot: () => T
   subscribe: (listener: () => void) => () => void
-  update: (updater: (current: T) => T) => void
+  /**
+   * Applies a change and writes it to storage. Returns false, leaving the
+   * state unchanged, when the browser refuses to store it (full, or disabled),
+   * so callers never report something as saved that would vanish on reload.
+   */
+  update: (updater: (current: T) => T) => boolean
+}
+
+interface PersistentStoreOptions<T> {
+  /**
+   * Called when stored data fails validation: return what can be salvaged
+   * (or undefined to fall back). Lets user data survive one bad entry.
+   */
+  recover?: (raw: unknown) => T | undefined
 }
 
 /**
- * A tiny localStorage-backed store for user data that has no server yet.
- * Stored values are validated on read, so a corrupt or outdated entry falls
- * back to defaults instead of crashing the app. Other tabs stay in sync.
+ * A tiny localStorage-backed store for data kept in this browser.
+ * Stored values are validated on read, so a corrupt or outdated entry is
+ * recovered (or falls back to defaults) instead of crashing the app.
+ * Other tabs stay in sync.
  */
-export function createPersistentStore<T>(key: string, schema: z.ZodType<T>, fallback: T): PersistentStore<T> {
+export function createPersistentStore<T>(
+  key: string,
+  schema: z.ZodType<T>,
+  fallback: T,
+  { recover }: PersistentStoreOptions<T> = {},
+): PersistentStore<T> {
   const read = (): T => {
+    let raw: unknown
     try {
-      const raw = localStorage.getItem(key)
-      if (!raw) return fallback
-      const parsed = schema.safeParse(JSON.parse(raw))
-      return parsed.success ? parsed.data : fallback
+      const stored = localStorage.getItem(key)
+      if (!stored) return fallback
+      raw = JSON.parse(stored)
     } catch {
       return fallback
     }
+    const parsed = schema.safeParse(raw)
+    if (parsed.success) return parsed.data
+    return recover?.(raw) ?? fallback
   }
 
   let state = read()
@@ -45,13 +67,15 @@ export function createPersistentStore<T>(key: string, schema: z.ZodType<T>, fall
       }
     },
     update(updater) {
-      state = updater(state)
+      const next = updater(state)
       try {
-        localStorage.setItem(key, JSON.stringify(state))
+        localStorage.setItem(key, JSON.stringify(next))
       } catch {
-        // Storage can be full or unavailable (private mode); keep the in-memory state.
+        return false
       }
+      state = next
       notify()
+      return true
     },
   }
 }
